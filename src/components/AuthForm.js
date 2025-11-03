@@ -1,12 +1,25 @@
 import './AuthForm.css';
 import React, {useState} from 'react';
+import axios from 'axios';
 
 const AuthForm = ()=>{
     const [name, setName] = useState('');
     const [pass, setPass] = useState('');
-
-    const handleSubmit = (event) => {
-        alert(`Submit \nname:${name} pass: ${pass}`);
+    const [result, setResult] = useState('');
+    
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try{
+            const response = await axios.post('http://localhost:3000', {
+            name: name,
+            password: pass
+        });
+        
+            setResult(response.data);
+        } catch(error) {
+            setResult(error.message);
+        }
+        
     };
 
     const handleNameChange = (event) => {
@@ -18,17 +31,18 @@ const AuthForm = ()=>{
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Name:
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Name:{name}
+                    <br/>
+                    <input type='text' className='login-input' onChange={handleNameChange}/>
+                    <br/>
+                    <input type='text' onChange={handlePassChange}/>
+                </label>
                 <br/>
-                <input type='text' onChange={handleNameChange}/>
-                <br/>
-                <input type='text' onChange={handlePassChange}/>
-            </label>
-            <br/>
-            <button type='submit'>Submit</button>
-        </form>
+                <p>{result}</p>
+                <button type='submit'>Submit</button>
+            </form>
     );
 }
 
