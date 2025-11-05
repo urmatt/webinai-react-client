@@ -1,14 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
 import './components/AppHeader';
-import AppHeader from './components/AppHeader';
-import AuthForm from './components/AuthForm';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Home from './pages/Home';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
-    <div className="App">
-      <AuthForm/>
-    </div>
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link> | <Link to="/login">Login</Link>
+      </nav>
+
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/login' element={<LoginPage/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
