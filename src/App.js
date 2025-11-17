@@ -1,27 +1,27 @@
 import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+// Put any other imports below so that CSS from your
+// components takes precedence over default styles.
+// import './App.css';
 import './components/AppHeader';
-import AppHeader from './components/AppHeader';
-import AuthForm from './components/AuthForm';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
     <BrowserRouter>
-      <nav>
-        <Link to="/">Home</Link> 
-         | <Link to="/login">Login</Link> 
-         | <Link to="/registration">Registration</Link>
-      </nav>
+      <NavBar/>
 
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<LoginPage/>}/>
-        <Route path='/registration' element={<RegistrationPage/>}/>
-      </Routes>
+      <div class="container">
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/login' element={<LoginPage/>}/>
+          <Route path='/registration' element={<RegistrationPage/>}/>
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }
